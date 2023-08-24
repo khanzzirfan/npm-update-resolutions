@@ -57,6 +57,20 @@ async function generateAuditJson() {
 async function updatePackageWithResolutions(args: string[]) {
   const auditFilePath = path.join(process.cwd(), 'audit.json');
   const packageFilePath = path.join(process.cwd(), 'package.json');
+  const packageLockFilePath = path.join(process.cwd(), 'package-lock.json');
+  let hasPackageLockFile = false;
+
+  // Check if package-lock.json file is missing and generate it if necessary
+  if (!fs.existsSync(packageLockFilePath)) {
+    console.log(
+      'package-lock.json file is missing. Generating it now.... It will be deleted after the upgrade.'
+    );
+    // @ts-ignore
+    execSync('npm i --package-lock-only', options);
+    hasPackageLockFile = false; // keep this flag after generating false, so we can delete it later.
+  } else {
+    hasPackageLockFile = true;
+  }
 
   // clean up audit.json file
   if (fs.existsSync('audit.json')) {
@@ -112,7 +126,7 @@ async function updatePackageWithResolutions(args: string[]) {
 
   // Run npm-force-resolutions to install all the patched versions
   // Run npm-force-resolutions if --force flag is provided
-  if (args.includes('--force-resolution')) {
+  if (args.includes('--force-resolutions')) {
     execAsync('npx npm-force-resolutions')
       // @ts-ignore
       .then(({ stdout, stderr }: { stdout: any; stderr: any }) => {
@@ -126,8 +140,12 @@ async function updatePackageWithResolutions(args: string[]) {
 
     console.log('completed npm-force-resolutions');
   } // EOF exec npm-force-resolutions
-  /// }); // EOF exec npm audit --json
   console.log('completed upgrade. Check package.json for resolutions.');
+
+  if (!hasPackageLockFile && !args.includes('--keep-package-lock')) {
+    // Delete package-lock.json file
+    fs.unlinkSync(packageLockFilePath);
+  }
 
   // clean up audit.json file
   if (fs.existsSync('audit.json')) {
