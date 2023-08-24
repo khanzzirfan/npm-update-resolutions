@@ -157,7 +157,7 @@ async function updatePackageWithResolutions(args: string[]) {
 
 // Get command-line arguments
 const args = process.argv.slice(2);
-console.log('args', args);
+/// console.log('args', args);
 if (args.length <= 0) {
   console.error(
     'Usage: npx npm-update-resolutions -- --force-resolution --major'
