@@ -1,6 +1,6 @@
 {
   "name": "npm-update-resolutions",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.0",
   "description": "node package to update resolutions automatically after generating the npm audit json file.",
   "author": "khanzzirfan <khanzz_irfan@hotmail.com>",
   "main": "index.js",
@@ -9,6 +9,7 @@
     "lint": "eslint --ignore-path .gitignore .",
     "lint:fix": "npm run lint -- --fix",
     "release": "standard-version --no-verify",
+    "release:alpha": "standard-version --no-verify --prerelease alpha",
     "test": "mocha",
     "test:coverage": "nyc npm test",
     "test:coverage:report": "nyc report --reporter=html",
