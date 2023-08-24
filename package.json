@@ -1,8 +1,8 @@
 {
-  "name": "npm-package-template",
+  "name": "npm-update-resolutions",
   "version": "1.0.0-alpha",
-  "description": "npm package template.",
-  "author": "Mark <mark@remarkablemark.org>",
+  "description": "node package to update resolutions automatically after generating the npm audit json file.",
+  "author": "khanzzirfan <khanzz_irfan@hotmail.com>",
   "main": "index.js",
   "scripts": {
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
@@ -12,7 +12,10 @@
     "test": "mocha",
     "test:coverage": "nyc npm test",
     "test:coverage:report": "nyc report --reporter=html",
-    "test:watch": "mocha --watch"
+    "test:watch": "mocha --watch",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test:jest": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,12 +25,15 @@
     "url": "https://github.com/remarkablemark/npm-package-template/issues"
   },
   "keywords": [
-    "npm-package-template"
+    "npm-resolutions",
+    "npx-force-resolutions",
+    "resolutions",
+    "update-resolutions"
   ],
-  "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@types/fs-extra": "11.0.1",
     "coveralls": "^3.1.0",
     "eslint": "^7.15.0",
     "eslint-plugin-prettier": "^3.2.0",
@@ -36,8 +42,12 @@
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
-    "standard-version": "^9.0.0"
+    "standard-version": "^9.0.0",
+    "typescript": "5.1.6"
   },
   "files": [],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "11.1.1"
+  }
 }

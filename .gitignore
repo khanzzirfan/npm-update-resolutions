@@ -49,3 +49,11 @@ dist
 
 # Mac OS
 .DS_Store
+
+## Ignore reports
+audit.json
+output.json
+audit-report.html
+**/reports
+**-report.html
+**-report.xml

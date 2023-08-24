@@ -10,20 +10,8 @@ npm package template.
 
 ## Installation
 
-Clone repository with Git:
-
-```sh
-git clone https://github.com/remarkablemark/npm-package-template.git
-cd npm-package-template
-```
-
-## Usage
-
-Rename package (use [npm-package-name-checker](https://remarkablemark.org/npm-package-name-checker/) to check for name availability):
-
-```sh
-# replace $NAME with your package name
-git grep -l npm-package-template | xargs sed -i '' -e "s/npm-package-template/$NAME/g"
+```js
+npm install -g npm-update-resolutions
 ```
 
 Manually update the files:
