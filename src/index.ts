@@ -153,6 +153,8 @@ async function updatePackageWithResolutions(args: string[]) {
     // delete file
     fs.unlinkSync('audit.json');
     process.exit(0);
+  } else {
+    process.exit(0);
   }
 }
 
