@@ -4,6 +4,9 @@
   "description": "node package to update resolutions automatically after generating the npm audit json file.",
   "author": "khanzzirfan <khanzz_irfan@hotmail.com>",
   "main": "dist/index.js",
+  "bin": {
+    "npm-update-resolutions": "./dist/index.js"
+  },
   "files": [
     "dist"
   ],

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+// @ts-ignore
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { execSync, spawn } from 'child_process';
