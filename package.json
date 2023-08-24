@@ -3,7 +3,10 @@
   "version": "1.0.1-alpha.0",
   "description": "node package to update resolutions automatically after generating the npm audit json file.",
   "author": "khanzzirfan <khanzz_irfan@hotmail.com>",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint --ignore-path .gitignore .",
@@ -46,7 +49,6 @@
     "standard-version": "^9.0.0",
     "typescript": "5.1.6"
   },
-  "files": [],
   "license": "MIT",
   "dependencies": {
     "fs-extra": "11.1.1",
