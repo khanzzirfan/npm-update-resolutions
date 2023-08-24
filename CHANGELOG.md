@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/remarkablemark/npm-package-template/compare/v1.0.2...v1.0.3) (2023-08-24)
+
+
+### Bug Fixes
+
+* updated check for package lock json files ([97e456f](https://github.com/remarkablemark/npm-package-template/commit/97e456f08e1a03e42c6ded057341f7bbc787eb8b))
+
 ### [1.0.2](https://github.com/remarkablemark/npm-package-template/compare/v1.0.1...v1.0.2) (2023-08-24)
 
 
