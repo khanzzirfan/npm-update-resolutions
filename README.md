@@ -94,13 +94,6 @@ npm pack --dry-run
 # tar tvf $(npm pack)
 ```
 
-## Support
-
-- [Patreon](https://b.remarkabl.org/patreon)
-- [Ko-fi](https://b.remarkabl.org/ko-fi)
-- [Liberapay](https://b.remarkabl.org/liberapay)
-- [Teepsring](https://b.remarkabl.org/teespring)
-
 ## License
 
 [MIT](https://github.com/remarkablemark/npm-package-template/blob/master/LICENSE)
