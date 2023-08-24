@@ -147,8 +147,9 @@ async function updatePackageWithResolutions(args: string[]) {
     fs.unlinkSync(packageLockFilePath);
   }
 
+  // keep the file if the args passed in includes --keep-audit
   // clean up audit.json file
-  if (fs.existsSync('audit.json')) {
+  if (fs.existsSync('audit.json') && !args.includes('--keep-audit')) {
     // delete file
     fs.unlinkSync('audit.json');
     process.exit(0);
