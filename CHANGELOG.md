@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6-alpha.0](https://github.com/khanzzirfan/npm-update-resolutions/compare/v1.0.5...v1.0.6-alpha.0) (2023-10-22)
+
+
+### Bug Fixes
+
+* updated npm deps ([27f0adf](https://github.com/khanzzirfan/npm-update-resolutions/commit/27f0adfd1bec05e2a622ea9c83bab8d0daba658b))
+
 ### [1.0.5](https://github.com/remarkablemark/npm-package-template/compare/v1.0.4...v1.0.5) (2023-08-24)
 
 
