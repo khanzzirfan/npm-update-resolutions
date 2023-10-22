@@ -1,0 +1,5 @@
+{
+  "upgrade": true,
+  "target": "latest",
+  "reject": ["@types/estree", "ts-node"]
+}

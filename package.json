@@ -22,14 +22,15 @@
     "test:watch": "mocha --watch",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test:jest": "jest"
+    "test:jest": "jest",
+    "ncu:update": "npx ncu --configFileName=./.ncurc.json"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/remarkablemark/npm-package-template"
+    "url": "https://github.com/khanzzirfan/npm-update-resolutions"
   },
   "bugs": {
-    "url": "https://github.com/remarkablemark/npm-package-template/issues"
+    "url": "https://github.com/khanzzirfan/npm-update-resolutions/issues"
   },
   "keywords": [
     "npm-resolutions",
@@ -38,32 +39,25 @@
     "update-resolutions"
   ],
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@types/fs-extra": "11.0.1",
-    "coveralls": "^3.1.0",
-    "eslint": "^7.15.0",
-    "eslint-plugin-prettier": "^3.2.0",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.5.3",
-    "mocha": "^8.2.1",
+    "@commitlint/cli": "^18.0.0",
+    "@commitlint/config-conventional": "^18.0.0",
+    "@types/fs-extra": "11.0.3",
+    "coveralls": "^3.1.1",
+    "eslint": "^8.52.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
+    "mocha": "^10.2.0",
+    "npm-check-updates": "16.14.6",
     "nyc": "^15.1.0",
-    "prettier": "^2.2.1",
-    "standard-version": "^9.0.0",
-    "typescript": "5.1.6"
+    "prettier": "^3.0.3",
+    "standard-version": "^9.5.0",
+    "typescript": "5.2.2"
   },
   "license": "MIT",
   "dependencies": {
     "fs-extra": "11.1.1",
     "util": "0.12.5"
   },
-  "resolutions": {
-    "@commitlint/cli": "17.7.1",
-    "@commitlint/is-ignored": "17.7.1",
-    "@commitlint/lint": "17.7.1",
-    "minimatch": "10.2.0",
-    "mocha": "10.2.0",
-    "nanoid": "10.2.0",
-    "semver": "17.7.1"
-  }
+  "resolutions": {}
 }
