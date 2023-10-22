@@ -1,6 +1,6 @@
 {
   "name": "npm-update-resolutions",
-  "version": "1.0.6-alpha.2",
+  "version": "1.0.6-alpha.3",
   "description": "node package to update resolutions automatically after generating the npm audit json file.",
   "author": "khanzzirfan <khanzz_irfan@hotmail.com>",
   "main": "dist/index.js",
