@@ -16,6 +16,12 @@ To fix the npm dependencies
 npx npm-update-resolutions --force-resolutions --major
 ```
 
+Set custom registry url
+
+```js
+ npx npm-update-resolutions --force-resolutions --major --registry https://registry.npmjs.org/
+```
+
 ## Release
 
 Only collaborators with credentials can release and publish:

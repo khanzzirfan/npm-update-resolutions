@@ -24,14 +24,21 @@ const options = {
 
 const execAsync = promisify(execSync);
 
-async function generateAuditJson() {
+async function generateAuditJson(registry: string | null) {
   try {
-    execSync('npm audit --json > audit.json', {
-      stdio: 'inherit',
-      encoding: 'utf8',
-      maxBuffer: 1024 * 1024 * 100,
-    });
-
+    if (registry) {
+      execSync(`npm audit --json --registry=${registry} > audit.json`, {
+        stdio: 'inherit',
+        encoding: 'utf8',
+        maxBuffer: 1024 * 1024 * 100,
+      });
+    } else {
+      execSync('npm audit --json > audit.json', {
+        stdio: 'inherit',
+        encoding: 'utf8',
+        maxBuffer: 1024 * 1024 * 100,
+      });
+    }
     // Check if the audit.json file exists
     if (fs.existsSync('audit.json')) {
       console.log('audit.json generated.');
@@ -60,14 +67,32 @@ async function updatePackageWithResolutions(args: string[]) {
   const packageLockFilePath = path.join(process.cwd(), 'package-lock.json');
   let hasPackageLockFile = false;
 
+  // check if args has --registry flag with value passed
+  let registryProp = null;
+  if (args.includes('--registry')) {
+    const registry = args[args.indexOf('--registry') + 1];
+    console.log('registry', registry);
+    registryProp = registry;
+  }
+
   // Check if package-lock.json file is missing and generate it if necessary
   if (!fs.existsSync(packageLockFilePath)) {
     console.log(
-      'package-lock.json file is missing. Generating it now.... It will be deleted after the upgrade.'
+      'package-lock.json file is missing. Generating it now.... It will be deleted after the upgrade.',
     );
-    // @ts-ignore
-    execSync('npm i --package-lock-only', options);
-    hasPackageLockFile = false; // keep this flag after generating false, so we can delete it later.
+
+    if (!registryProp) {
+      execSync(
+        `npm i --package-lock-only --legacy-peer-deps --registry=${registryProp} `,
+        // @ts-ignore
+        options,
+      );
+      hasPackageLockFile = false; // keep this flag after generating false, so we can delete it later.
+    } else {
+      // @ts-ignore
+      execSync('npm i --package-lock-only --legacy-peer-deps', options);
+      hasPackageLockFile = false; // keep this flag after generating false, so we can delete it later.
+    }
   } else {
     hasPackageLockFile = true;
   }
@@ -78,18 +103,26 @@ async function updatePackageWithResolutions(args: string[]) {
     fs.unlinkSync('audit.json');
   }
 
-  await generateAuditJson();
+  await generateAuditJson(registryProp);
   // // Generate audit.json file if it doesn't exist
   if (!fs.existsSync(auditFilePath)) {
     return;
   }
 
-  console.log('completed npm audit');
-  console.log('analyzing audit.json');
-
   // Read audit.json file
   const auditData = fs.readFileSync(auditFilePath, 'utf8');
   const auditJson = JSON.parse(auditData);
+
+  if (auditJson && auditJson.metadata) {
+    console.log('auditJson has all the metada to process');
+  } else {
+    console.error(
+      'auditJson is missing metadata. You could be behind proxy. Try again with --registry flag to point to the right registry.',
+    );
+    return;
+  }
+  console.log('completed npm audit');
+  console.log('analyzing audit.json');
 
   // Find vulnerabilities with patches
   const patches: { [key: string]: string } = {};
@@ -121,23 +154,27 @@ async function updatePackageWithResolutions(args: string[]) {
   fs.writeFileSync(
     packageFilePath,
     JSON.stringify(packageJson, null, 2),
-    'utf8'
+    'utf8',
   );
 
   // Run npm-force-resolutions to install all the patched versions
   // Run npm-force-resolutions if --force flag is provided
   if (args.includes('--force-resolutions')) {
-    execAsync('npx npm-force-resolutions')
-      // @ts-ignore
-      .then(({ stdout, stderr }: { stdout: any; stderr: any }) => {
-        console.log('completed npm-force-resolutions');
-        console.log(stdout);
-        console.log(stderr);
-      })
-      .catch((err: any) => {
-        console.error(err);
-      });
-
+    console.log('running npm-force-resolutions');
+    if (!registryProp) {
+      await execAsync(`npx npm-force-resolutions --registry=${registryProp}`);
+    } else {
+      execAsync('npx npm-force-resolutions')
+        // @ts-ignore
+        .then(({ stdout, stderr }: { stdout: any; stderr: any }) => {
+          console.log('completed npm-force-resolutions');
+          console.log(stdout);
+          console.log(stderr);
+        })
+        .catch((err: any) => {
+          console.error(err);
+        });
+    }
     console.log('completed npm-force-resolutions');
   } // EOF exec npm-force-resolutions
   console.log('completed upgrade. Check package.json for resolutions.');
@@ -163,7 +200,7 @@ const args = process.argv.slice(2);
 /// console.log('args', args);
 if (args.length <= 0) {
   console.error(
-    'Usage: npx npm-update-resolutions -- --force-resolution --major'
+    'Usage: npx npm-update-resolutions -- --force-resolution --major',
   );
   process.exit(1);
 }
